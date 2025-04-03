@@ -43,7 +43,7 @@ fetch('https://basalio-art.github.io/Vitube/videoData.json')
 
             const videoElem = document.getElementById(uniqueId)
             videoElem.addEventListener('click', () => {
-                window.location.href = `watch.html?v=${uniqueId}`
+                window.location.href = `watch?v=${uniqueId}`
             })
         })
     })
