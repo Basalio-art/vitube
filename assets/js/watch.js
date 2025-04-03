@@ -52,7 +52,7 @@ fetch('../assets/json/videoData.json')
 
                 const videoElem = document.getElementById(uniqueId);
                 videoElem.addEventListener('click', () => {
-                    window.location.href = `watch.html?v=${uniqueId}`;
+                    window.location.href = `watch?v=${uniqueId}`;
                 })
             } else {
                 document.title = `${video.title} - Vitube`
@@ -584,7 +584,7 @@ fetch('../assets/json/videoData.json')
     })
 
 homeBTN.addEventListener('click', () => {
-    window.location.href = 'index.html'
+    window.location.href = ''
 })
 
 function videoDuration(videoItem) {
