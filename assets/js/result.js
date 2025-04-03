@@ -118,5 +118,5 @@ function displaynores() {
 }
 
 homeBTN.addEventListener('click', () => {
-    window.location.href = "https://basalio-art.github.io/Vitube"
+    window.location.href = "https://basalio-art.github.io/vitube"
 })
