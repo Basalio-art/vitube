@@ -6,7 +6,7 @@ const videoList = document.querySelector('.video-list')
 
 const homeBTN = document.querySelector('.home')
 
-fetch('https://basalio-art.github.io/Vitube/assets/json/videoData.json')
+fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
     .then(response => response.json())
     .then(videoData => {
 
@@ -584,7 +584,7 @@ fetch('https://basalio-art.github.io/Vitube/assets/json/videoData.json')
     })
 
 homeBTN.addEventListener('click', () => {
-    window.location.href = 'https://basalio-art.github.io/Vitube'
+    window.location.href = 'https://basalio-art.github.io/vitube'
 })
 
 function videoDuration(videoItem) {
