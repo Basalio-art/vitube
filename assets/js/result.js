@@ -10,7 +10,7 @@ const homeBTN = document.querySelector('.home')
 if (!video_list) {
     console.error("Error: .video-list element not found.");
 } else {
-    fetch('https://basalio-art.github.io/Vitube/assets/json/videoData.json')
+    fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
         .then(res => res.json())
         .then(videoData => {
 
