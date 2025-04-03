@@ -79,7 +79,7 @@ function createVideoCard(video) {
 
     const videoElem = document.getElementById(uniqueId);
     videoElem.addEventListener('click', () => {
-        window.location.href = `watch.html?v=${uniqueId}`;
+        window.location.href = `watch?v=${uniqueId}`;
     })
 
     const videoElement = videoItem.querySelector("video");
@@ -120,5 +120,5 @@ function displaynores() {
 }
 
 homeBTN.addEventListener('click', () => {
-    window.location.href = 'index.html'
+    window.location.href = ''
 })
