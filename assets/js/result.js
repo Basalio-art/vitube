@@ -115,10 +115,8 @@ function displayvid(videoData) {
 
 function displaynores() {
     video_list.innerHTML += `<p class="nores">No result: <i>"${searchTerm}"</i></p>`
-
-
 }
 
 homeBTN.addEventListener('click', () => {
-    window.location.href = ''
+    window.location.href = "https://basalio-art.github.io/Vitube"
 })
