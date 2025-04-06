@@ -576,7 +576,7 @@ fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
     })
 
 homeBTN.addEventListener('click', () => {
-    window.location.href = 'index.html'
+    window.location.href = 'https://basalio-art.github.io/vitube/'
 })
 
 function videoDuration(videoItem) {
