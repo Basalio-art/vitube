@@ -10,7 +10,7 @@ search_input.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
         const searchTerm = search_input.value.trim();
         if (searchTerm) {
-            window.location.href = `results.html?search_query=${encodeURIComponent(searchTerm)}`;
+            window.location.href = `results?search_query=${encodeURIComponent(searchTerm)}`;
         }
     }
 });
@@ -18,7 +18,7 @@ search_input.addEventListener('keypress', (event) => {
 search_btn.addEventListener('click', () => {
     const searchTerm = search_input.value.trim();
     if (searchTerm) {
-        window.location.href = `results.html?search_query=${encodeURIComponent(searchTerm)}`;
+        window.location.href = `results?search_query=${encodeURIComponent(searchTerm)}`;
     }
 })
 
