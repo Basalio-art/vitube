@@ -6,7 +6,7 @@ const videoList = document.querySelector('.video-list')
 
 const homeBTN = document.querySelector('.home')
 
-fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
+fetch('assets/json/videoData.json')
     .then(response => response.json())
     .then(videoData => {
 
@@ -52,7 +52,7 @@ fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
 
                 const videoElem = document.getElementById(uniqueId);
                 videoElem.addEventListener('click', () => {
-                    window.location.href = `watch?v=${uniqueId}`;
+                    window.location.href = `watch.html?v=${uniqueId}`;
                 })
             } else {
                 document.title = `${video.title} - Vitube`
@@ -372,7 +372,7 @@ fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
                         comment_com.style.color = ""
                     }
                 })
-                
+
                 like_btn.addEventListener('click', () => {
                     like_btn.classList.toggle('liked')
                     dislike_btn.classList.remove('disliked')
@@ -385,17 +385,17 @@ fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
 
                 com_like.forEach((like, index) => {
                     const dislike = com_dislike[index]
-                
+
                     like.addEventListener('click', () => {
                         like.classList.toggle('liked')
                         dislike.classList.remove('disliked')
                     })
-                
+
                     dislike.addEventListener('click', () => {
                         dislike.classList.toggle('disliked')
                         like.classList.remove('liked')
                     })
-                })                
+                })
 
                 subBTN.addEventListener('change', () => {
                     if (subBTN.checked) {
@@ -515,12 +515,9 @@ fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
 
                 dis_check.addEventListener("change", () => {
                     if (dis_check.checked) {
-                        
-                        discription.style.animation = "none"
-                
-                        discription.style.cssText = "max-height: 91px; animation: dis-more 1.5s ease-in-out forwards;"
+
                         dis_blank.style.cssText = "pointer-events: none;"
-                
+
                         dis_more.innerHTML = `<label for="dis-check" class="dis-less">Show less</label>`
                         main_dis_p.style.cssText = ""
 
@@ -560,23 +557,18 @@ fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
                             </div>
                         `
                     } else {
-                        discription.style.animation = "none"
-                
-                        discription.style.cssText = "max-height: 656px; animation: dis-less 1.5s ease-in-out forwards;"
-                
-                        setTimeout(() => {
-                            main_dis_p.style.cssText = `
-                                -webkit-line-clamp: 1;
-                                line-clamp: 1;
-                            `
-                
-                            dis_blank.style.cssText = "pointer-events: fill;"
-                            dis_more.innerHTML = "more..."
 
-                            dis_other.innerHTML = ""
+                        main_dis_p.style.cssText = `
+                            -webkit-line-clamp: 1;
+                            line-clamp: 1;
+                        `
 
-                            dis_other.style.cssText = ""
-                        }, 1500);
+                        dis_blank.style.cssText = "pointer-events: fill;"
+                        dis_more.innerHTML = "more..."
+
+                        dis_other.innerHTML = ""
+
+                        dis_other.style.cssText = ""
                     }
                 })
             }
@@ -584,7 +576,7 @@ fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
     })
 
 homeBTN.addEventListener('click', () => {
-    window.location.href = 'https://basalio-art.github.io/vitube'
+    window.location.href = 'index.html'
 })
 
 function videoDuration(videoItem) {
