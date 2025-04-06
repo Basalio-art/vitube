@@ -54,9 +54,16 @@ html {
     scroll-behavior: smooth;
 }
 
+html, body {
+    height: auto;
+    min-height: 100%;
+}
+
+
 body {
     font-family: var(--font);
-    height: 100vh;
+    overflow: hidden;
+    overflow-y: scroll;
 }
 
 nav {
@@ -505,7 +512,6 @@ aside img {
 
 .video-list {
     width: 100%;
-    height: 90vh;
     gap: 10px;
     display: flex;
     flex-direction: column;
@@ -582,6 +588,10 @@ aside img {
     display: flex;
 }
 
+.videoItem .info > div {
+    flex: 1;
+}
+
 .videoItem .info svg {
     flex-shrink: 0;
     width: 25px;
@@ -646,4 +656,85 @@ aside img {
     font-weight: bold;
     padding-left: 50px;
     padding-bottom: 50px;
+    text-overflow: ellipsis;
+    width: 75em;
+    text-wrap: nowrap;
+    overflow: hidden;
+}
+
+.loaderHidden {
+    opacity: 0;
+}
+
+.loader {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1000;
+    background: white;
+    transition: 1s ease-in-out;
+}
+
+.loadcontainer {
+    padding: 90px 5vw;
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.loaditemvid {
+    display: grid;
+    grid-template-columns: 32vw 1fr;
+    position: relative;
+}
+
+.loaditemvid .minvid {
+    background-color: #c8c8c8;
+    height: 18vw;
+    border-radius: 15px;
+    position: relative;
+}
+
+.loaditemvid .minvid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 105%;
+    height: 2.5vw;
+    border-radius: 5px;
+    width: 180%;
+    background-color: #c8c8c8;
+}
+
+.loaditemvid .minvid::after {
+    content: '';
+    position: absolute;
+    top: 4vw;
+    left: 105%;
+    height: 2.5vw;
+    border-radius: 5px;
+    width: 150%;
+    background-color: #c8c8c8;
+}
+
+.loader * {
+    animation: load 2s ease-in-out infinite forwards;
+}
+
+.loaditemvid::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    left: 37.5%;
+    top: 8vw;
+    background-color: #c8c8c8;
+}
+
+@keyframes load {
+    0% { opacity: 1; }
+    50% { opacity: .7; }
+    100% { opacity: 1; }
 }

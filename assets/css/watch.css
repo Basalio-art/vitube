@@ -14,6 +14,8 @@
 }
 
 :root {
+    interpolate-size: allow-keywords;
+
     --bg-color: white;
     --bg-color-1: #00000010;
     --bg-color-2: #00000080;
@@ -582,6 +584,10 @@ aside img {
     display: flex;
 }
 
+.videoItem .info > div {
+    flex: 1;
+}
+
 .videoItem .info svg {
     flex-shrink: 0;
     cursor: pointer;
@@ -760,11 +766,12 @@ aside img {
 
 .video-container .owner-part .sub-lbl-for .sub-options {
     position: absolute;
-    bottom: -450%;
+    top: 110%;
     display: flex;
     flex-direction: column;
     border-radius: 15px;
     left: 0;
+    overflow: hidden;
     padding: 5px 0;
     background: white;
     z-index: 1;
@@ -883,18 +890,7 @@ aside img {
     border-radius: 15px;
     position: relative;
     overflow: hidden;
-}
-
-@keyframes dis-more {
-    to {
-        max-height: 656px;
-    }
-}
-
-@keyframes dis-less {
-    to {
-        max-height: 91px;
-    }
+    height: auto;
 }
 
 .video-container .discription .blank {
@@ -1150,4 +1146,116 @@ aside img {
 
 .video-container .comment-list .sort .sort-btn:hover {
     background-color: var(--bg-color-1);
+}
+
+.loaderHidden {
+    opacity: 0;
+}
+
+.loader {
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    transition: 1s ease-in-out;
+}
+
+.loader * {
+    animation: load 2s ease-in-out infinite forwards;
+}
+
+.loadcontainer {
+    padding: 25px;
+    padding-top: 90px;
+    max-width: 90%;
+    display: flex;
+    gap: 10px;
+    margin-inline: auto;
+}
+
+.loadminvid {
+    flex: 1;
+}
+
+.loadminvid > * {
+    background-color: #c8c8c8;
+    width: 65vw;
+    height: 35vw;
+    max-height: 100%;
+    border-radius: 15px;
+    position: relative;
+}    
+
+.loadminvid > *::after {
+    content: '';
+    position: absolute;
+    top: 39vw;
+    left: 0;
+    width: 4vw;
+    height: 4vw;
+    background-color: #c8c8c8;
+    border-radius: 50%;
+}
+
+.loadminvid > *::before {
+    content: '';
+    position: absolute;
+    top: 36vw;
+    left: 0;
+    width: 80%;
+    height: 2.5vw;
+    background-color: #c8c8c8;
+    border-radius: 5px;
+}
+
+.loadlist {
+    width: 400px;
+    height: 100vh;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.loadlist > * {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    gap: 10px;
+}
+
+.loadvidItem .minvid {
+    width: 13vw;
+    height: 8vw;
+    border-radius: 10px;
+    background-color: #c8c8c8;
+    position: relative;
+}
+
+.loadvidItem .minvid::after {
+    content: '';
+    position: absolute;
+    background-color: #c8c8c8;
+    left: 105%;
+    height: 1.5vw;
+    width: 70%;
+    border-radius: 5px
+}
+
+.loadvidItem .minvid::before {
+    content: '';
+    position: absolute;
+    background-color: #c8c8c8;
+    left: 105%;
+    height: 1vw;
+    width: 50%;
+    top: 35px;
+    border-radius: 5px;
+}
+
+@keyframes load {
+    0% { opacity: 1; }
+    50% { opacity: .7; }
+    100% { opacity: 1; }
 }
