@@ -593,6 +593,15 @@ aside img {
     max-width: 82%;
 }
 
+.videoItem .info .details h5 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;  
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .videoItem .details {
     display: flex;
     flex-direction: column;
