@@ -10,7 +10,7 @@ search_input.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
         const searchTerm = search_input.value.trim();
         if (searchTerm) {
-            window.location.href = `result?search_query=${encodeURIComponent(searchTerm)}`;
+            window.location.href = `results.html?search_query=${encodeURIComponent(searchTerm)}`;
         }
     }
 });
@@ -18,9 +18,19 @@ search_input.addEventListener('keypress', (event) => {
 search_btn.addEventListener('click', () => {
     const searchTerm = search_input.value.trim();
     if (searchTerm) {
-        window.location.href = `result?search_query=${encodeURIComponent(searchTerm)}`;
+        window.location.href = `results.html?search_query=${encodeURIComponent(searchTerm)}`;
     }
 })
 
+document.body.style.overflow = "hidden";
+
+window.addEventListener('load', () => {
+    const loader = document.querySelector('.loader')
+    document.body.style.overflow = ""
+    loader.classList.add('loaderHidden')
+    loader.addEventListener('transitionend', () => {
+        document.body.removeChild(loader)
+    })
+})
 
 console.log('%c Made by basalio ', 'font-size:50px;color:lime;');
