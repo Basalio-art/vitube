@@ -14,6 +14,17 @@ fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
 
         const shuffledVideos = videoData.sort(() => Math.random() - .5)
 
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.play()
+                    observer.unobserve(entry.target)
+                } else {
+                    console.log('still observed')
+                }
+            })
+        })
+
         shuffledVideos.forEach(video => {
             const uniqueId = `video-${video.id}`
 
@@ -24,7 +35,7 @@ fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
 
                 videoItem.innerHTML = `
                     <div class="video-wrapper">
-                        <video muted onmouseover="this.play();this.currentTime=0;" onmouseout="this.pause()" poster="${video.thumbnail}">
+                        <video muted poster="${video.thumbnail}">
                             <source src="${video.url}" type="video/mp4">
                         </video>
                         <img src="${video.thumbnail}">
@@ -46,19 +57,33 @@ fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                     </div>
                 `
+
+                const videoReview = videoItem.querySelector('video')
+
+                videoReview.addEventListener('mouseenter', () => {
+                    videoReview.play()
+                })
+
+                videoReview.addEventListener('mouseleave', () => {
+                    videoReview.pause()
+                    setTimeout(() => {
+                        videoReview.currentTime = 0
+                    }, 1000)
+                })
+
                 videoList.appendChild(videoItem)
 
                 videoDuration(videoItem)
 
                 const videoElem = document.getElementById(uniqueId);
                 videoElem.addEventListener('click', () => {
-                    window.location.href = `watch.html?v=${uniqueId}`;
+                    window.location.href = `watch?v=${uniqueId}`;
                 })
             } else {
                 document.title = `${video.title} - Vitube`
 
                 videoWrap.innerHTML = `
-                    <video controls autoplay poster="${video.thumbnail}">
+                    <video controls poster="${video.thumbnail}">
                         <source src="${video.url}">
                     </video>
 
@@ -347,7 +372,10 @@ fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
                 const comment_com = document.querySelector('.comment-list .comment')
                 const cancel_com = document.querySelector('.comment-list .cancel')
                 const input_btn = document.querySelector('.comment-list .input-btn')
-
+                const main_vid = document.querySelector('.video-container video')
+                
+                observer.observe(main_vid)
+                
                 input_com.addEventListener('click', () => {
                     input_com.setAttribute("placeholder", " ")
                     input_btn.style.display = "block"
@@ -513,8 +541,15 @@ fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
                     line-clamp: 1;
                 `
 
+                
+                discription.style.height = `71px`
+
                 dis_check.addEventListener("change", () => {
                     if (dis_check.checked) {
+
+                        setTimeout(() => {
+                            discription.style.height = '100%'
+                        })
 
                         dis_blank.style.cssText = "pointer-events: none;"
 
@@ -557,18 +592,24 @@ fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
                             </div>
                         `
                     } else {
+                        setTimeout(() => {
+                            discription.style.height = `71px`
+                        })
 
-                        main_dis_p.style.cssText = `
-                            -webkit-line-clamp: 1;
-                            line-clamp: 1;
-                        `
+                        setTimeout(() => {
+                            main_dis_p.style.cssText = `
+                                -webkit-line-clamp: 1;
+                                line-clamp: 1;
+                            `
+    
+                            dis_blank.style.cssText = "pointer-events: fill;"
+                            dis_more.innerHTML = "more..."
+    
+                            dis_other.innerHTML = ""
+    
+                            dis_other.style.cssText = ""
+                        },1000)
 
-                        dis_blank.style.cssText = "pointer-events: fill;"
-                        dis_more.innerHTML = "more..."
-
-                        dis_other.innerHTML = ""
-
-                        dis_other.style.cssText = ""
                     }
                 })
             }
@@ -576,7 +617,7 @@ fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
     })
 
 homeBTN.addEventListener('click', () => {
-    window.location.href = 'https://basalio-art.github.io/vitube/'
+    window.location.href = 'index'
 })
 
 function videoDuration(videoItem) {
@@ -585,6 +626,11 @@ function videoDuration(videoItem) {
 
     videoElement.addEventListener('loadedmetadata', () => {
         durationContainer.textContent = durationFormat(videoElement.duration)
+    })
+
+    videoElement.addEventListener('timeupdate', () => {
+        const remainingTime = videoElement.duration - videoElement.currentTime
+        durationContainer.textContent = durationFormat(remainingTime)
     })
 }
 
@@ -603,3 +649,9 @@ function durationFormat(time) {
         return `${hours}:${leadZero.format(minutes)}:${leadZero.format(seconds)}`
     }
 }
+
+document.body.addEventListener('scroll', () => {
+    if (document.body.scrollTop >= 0) {
+        document.body.scrollTop = 0
+    }
+})
