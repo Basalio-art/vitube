@@ -1,16 +1,20 @@
 const urlParams = new URLSearchParams(window.location.search);
 const searchRes = urlParams.get('search_query');
-document.title = `${searchRes} - Vitube`;
+if (searchRes == null) {
+    document.title = `Vitube`
+} else { document.title = `${searchRes} - Vitube`; }
 
 const searchTerm = searchRes.toLowerCase();
 const video_list = document.querySelector('.video-list');
+
+video_list.innerHTML = "";
 
 const homeBTN = document.querySelector('.home')
 
 if (!video_list) {
     console.error("Error: .video-list element not found.");
 } else {
-    fetch('https://basalio-art.github.io/vitube/assets/json/videoData.json')
+    fetch('https://raw.githubusercontent.com/Basalio-art/vitube/refs/heads/main/assets/json/videoData.json')
         .then(res => res.json())
         .then(videoData => {
 
@@ -44,7 +48,7 @@ function createVideoCard(video) {
 
     videoItem.innerHTML = `
         <div class="video-wrapper">
-            <video muted onmouseover="this.play();this.currentTime=0;" onmouseout="this.pause()" poster="${video.thumbnail}">
+            <video muted poster="${video.thumbnail}">
                 <source src="${video.url}" type="video/mp4">
             </video>
             <img src="${video.thumbnail}">
@@ -75,11 +79,24 @@ function createVideoCard(video) {
         </div>
     `;
 
+    const videoReview = videoItem.querySelector('video')
+
+    videoReview.addEventListener('mouseenter', () => {
+        videoReview.play()
+    })
+
+    videoReview.addEventListener('mouseleave', () => {
+        videoReview.pause()
+        setTimeout(() => {
+            videoReview.currentTime = 0
+        }, 1000)
+    })
+
     video_list.appendChild(videoItem);
 
     const videoElem = document.getElementById(uniqueId);
     videoElem.addEventListener('click', () => {
-        window.location.href = `watch.html?v=${uniqueId}`;
+        window.location.href = `watch?v=${uniqueId}`;
     })
 
     const videoElement = videoItem.querySelector("video");
@@ -87,6 +104,11 @@ function createVideoCard(video) {
 
     videoElement.addEventListener('loadedmetadata', () => {
         durationContainer.textContent = durationFormat(videoElement.duration)
+    })
+
+    videoElement.addEventListener('timeupdate', () => {
+        const remainingTime = videoElement.duration - videoElement.currentTime
+        durationContainer.textContent = durationFormat(remainingTime)
     })
 }
 
@@ -120,7 +142,7 @@ function displaynores() {
 }
 
 homeBTN.addEventListener('click', () => {
-    window.location.href = 'https://basalio-art.github.io/vitube'
+    window.location.href = 'index'
 })
 
 document.getElementById('search').value = searchRes
