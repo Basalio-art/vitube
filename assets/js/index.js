@@ -45,4 +45,8 @@ shorts.forEach((shorts) => {
     });
 });
 
+if (window.orientation > -1) {
+    document.body.innerHTML = 'Not yet available in mobile 😥'
+}
+
 console.log("%c Made by basalio ", "font-size:50px;color:lime;");
